@@ -2,11 +2,12 @@
 hello world
 How are you
 # Rest Controller
-# Get
+
+	# Get
+
  @GetMapping(value = "/customers")
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
-
     }
     
  @GetMapping(value = "/customers/{id}")
@@ -17,13 +18,15 @@ How are you
         else return ResponseEntity.notFound().build();
     }
   
- # Post
+ 	# Post
+ 
  @PostMapping(value = "/customers")
     public Customer saveCustomer(@RequestBody Customer customer) {
         return customerRepository.save(customer);
     }
 
-# Put
+	# Put
+
  @PutMapping(value = "/customers/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
         Optional<Customer> customer1 = customerRepository.findById(id);
@@ -33,7 +36,8 @@ How are you
         return ResponseEntity.notFound().build();
     }
   
-# Delete
+	# Delete
+
  @DeleteMapping(value = "/customers/{id}")
     public ResponseEntity deleteCustomer(@PathVariable Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
@@ -45,6 +49,7 @@ How are you
 
     }
  # Command Runner
+ 
  @Bean
     public CommandLineRunner demo(CustomerRepository repository) {
         return args -> {
@@ -65,6 +70,7 @@ How are you
     }
  
 # Alternative to CommandLineRunner 
+
 @Bean
     public ApplicationRunner setup2(CustomerRepository repository) {
         return args -> {
@@ -92,6 +98,7 @@ How are you
     }
  
  # JPA
+ 
     <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -104,6 +111,7 @@ How are you
 		</dependency>
     
  # Entity
+ 
  package com.example.demo.jpa;
 
 import javax.persistence.Entity;
@@ -159,6 +167,7 @@ public interface CustomerRepository extends CrudRepository<Customer,Long> {
 }
   
 # Lombok
+
 <dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -180,6 +189,7 @@ public class User implements Serializable {
 }
  
 # swagger 
+
 <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
