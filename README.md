@@ -161,6 +161,26 @@ How are you
 	    List<Customer> findAll();
 	}
   
+# OneToMany
+	--
+	 @OneToMany(targetEntity = Address.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	 List<Address> addresses;
+	 ---
+	 public interface CustomerRepository extends CrudRepository<Customer,Long> {
+	    List<Customer> findAll();
+	    List<Customer> findByAddress_zipcode(String zipcode);
+	    List<Customer> findByAddress_ZipCode_AndAddress_Street(String zipCode, String street);
+	    // Or raw method
+	   /* @Query( value = "select * from customer c" +
+		    "join customer_addresses ca " +
+		    "   on c.id = ca.customer_id " +
+		    "join address a " +
+		    "   on a.id = ca.addresses_id " +
+		    "where c.zip = :zip", nativeQuery = true)
+	    Iterable<Customer> getPeopleWithZip(@Param("zip") String zip);
+	    */
+	}
+	
 # Lombok
 
 	<dependency>
