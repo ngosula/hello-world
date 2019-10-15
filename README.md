@@ -5,69 +5,69 @@ How are you
 
 	# Get
 
- @GetMapping(value = "/customers")
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
-    }
+	 @GetMapping(value = "/customers")
+	    public List<Customer> getAllCustomers() {
+		return customerRepository.findAll();
+	    }
     
- @GetMapping(value = "/customers/{id}")
-    public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        if (customer.isPresent())
-            return ResponseEntity.ok().body(customer.get());
-        else return ResponseEntity.notFound().build();
-    }
-  
- 	# Post
- 
- @PostMapping(value = "/customers")
-    public Customer saveCustomer(@RequestBody Customer customer) {
-        return customerRepository.save(customer);
-    }
+	 @GetMapping(value = "/customers/{id}")
+	    public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
+		Optional<Customer> customer = customerRepository.findById(id);
+		if (customer.isPresent())
+		    return ResponseEntity.ok().body(customer.get());
+		else return ResponseEntity.notFound().build();
+	    }
 
-	# Put
+		# Post
 
- @PutMapping(value = "/customers/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-        Optional<Customer> customer1 = customerRepository.findById(id);
-        if (customer1.isPresent()) {
-            return ResponseEntity.ok().body(customerRepository.save(customer));
-        }
-        return ResponseEntity.notFound().build();
-    }
-  
-	# Delete
+	 @PostMapping(value = "/customers")
+	    public Customer saveCustomer(@RequestBody Customer customer) {
+		return customerRepository.save(customer);
+	    }
 
- @DeleteMapping(value = "/customers/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable Long id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        if (customer.isPresent()) {
-            customerRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        } else
-            return ResponseEntity.notFound().build();
+		# Put
 
-    }
+	 @PutMapping(value = "/customers/{id}")
+	    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
+		Optional<Customer> customer1 = customerRepository.findById(id);
+		if (customer1.isPresent()) {
+		    return ResponseEntity.ok().body(customerRepository.save(customer));
+		}
+		return ResponseEntity.notFound().build();
+	    }
+
+		# Delete
+
+	 @DeleteMapping(value = "/customers/{id}")
+	    public ResponseEntity deleteCustomer(@PathVariable Long id) {
+		Optional<Customer> customer = customerRepository.findById(id);
+		if (customer.isPresent()) {
+		    customerRepository.deleteById(id);
+		    return ResponseEntity.ok().build();
+		} else
+		    return ResponseEntity.notFound().build();
+
+	    }
  # Command Runner
  
- @Bean
-    public CommandLineRunner demo(CustomerRepository repository) {
-        return args -> {
-            // save a few customers
-            repository.save(new Customer("FN1", "LN1"));
-            repository.save(new Customer("FN2", "LN2"));
-            repository.save(new Customer("FN3", "LN3"));
-            repository.save(new Customer("FN4", "LN4"));
-            // fetch all customers
-            log.info("Customers found with findAll():");
-            log.info("-------------------------------");
-            for (Customer customer : repository.findAll()) {
-                log.info(customer.toString());
-            }
-            log.info("");
+	 @Bean
+	    public CommandLineRunner demo(CustomerRepository repository) {
+		return args -> {
+		    // save a few customers
+		    repository.save(new Customer("FN1", "LN1"));
+		    repository.save(new Customer("FN2", "LN2"));
+		    repository.save(new Customer("FN3", "LN3"));
+		    repository.save(new Customer("FN4", "LN4"));
+		    // fetch all customers
+		    log.info("Customers found with findAll():");
+		    log.info("-------------------------------");
+		    for (Customer customer : repository.findAll()) {
+			log.info(customer.toString());
+		    }
+		    log.info("");
 
-        };
-    }
+		};
+	    }
  
 # Alternative to CommandLineRunner 
 
